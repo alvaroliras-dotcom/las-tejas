@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Restaurante Las Tejas — Sistema de diseño cálido, tradicional, gastronómico */
+
+@layer base {
+  :root {
+    /* Crema cálida de fondo */
+    --background: 36 38% 96%;
+    --foreground: 25 30% 14%;
+
+    --card: 36 40% 98%;
+    --card-foreground: 25 30% 14%;
+
+    --popover: 36 40% 98%;
+    --popover-foreground: 25 30% 14%;
+
+    /* Granate / vino — color principal */
+    --primary: 354 55% 32%;
+    --primary-foreground: 38 50% 96%;
+
+    /* Teja / terracota */
+    --secondary: 18 55% 48%;
+    --secondary-foreground: 38 50% 96%;
+
+    --muted: 36 25% 90%;
+    --muted-foreground: 25 18% 38%;
+
+    /* Mostaza dorada — acento */
+    --accent: 38 65% 52%;
+    --accent-foreground: 25 35% 14%;
+
+    --destructive: 0 75% 42%;
+    --destructive-foreground: 38 50% 96%;
+
+    --border: 30 20% 84%;
+    --input: 30 20% 84%;
+    --ring: 354 55% 32%;
+
+    --radius: 0.5rem;
+
+    /* Marrón madera */
+    --wood: 25 35% 22%;
+    --wood-foreground: 38 50% 96%;
+    --cream: 38 50% 94%;
+
+    /* Gradientes y sombras */
+    --gradient-warm: linear-gradient(135deg, hsl(354 55% 32%), hsl(18 55% 38%));
+    --gradient-overlay: linear-gradient(180deg, hsl(25 35% 8% / 0.15) 0%, hsl(25 35% 8% / 0.75) 100%);
+    --gradient-cream: linear-gradient(180deg, hsl(36 38% 96%) 0%, hsl(36 30% 92%) 100%);
+    --shadow-warm: 0 20px 50px -20px hsl(354 55% 20% / 0.35);
+    --shadow-soft: 0 8px 24px -10px hsl(25 35% 22% / 0.18);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-warm { background-image: var(--gradient-warm); }
+  .bg-gradient-overlay { background-image: var(--gradient-overlay); }
+  .bg-gradient-cream { background-image: var(--gradient-cream); }
+  .shadow-warm { box-shadow: var(--shadow-warm); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+
+  .text-balance { text-wrap: balance; }
+
+  .section-padding { @apply py-20 md:py-28; }
+  .container-prose { @apply max-w-3xl mx-auto; }
+}
+
+/* ===================================================================== */
+/* CAPA DE MOVIMIENTO                                                    */
+/* ===================================================================== */
+/*
+   Dos piezas:
+   1. El GATE — los estados iniciales ocultos viven detrás de `.js-motion`,
+      que pone un script del <head>. Sin JS, nada se oculta: la web se ve
+      entera (SEO, accesibilidad, red caída).
+   2. El TACTO — curvas y duraciones de la interfaz. Aquí no hay cine:
+      esto es el hover, la pulsación y el tiempo de respuesta.
+   El resto del movimiento (scroll, parallax, pins) lo dirige GSAP desde
+   src/lib/motion-runtime.ts. Si se quita esa capa, esta hoja no deja
+   nada roto ni escondido.
+*/
+
+@layer base {
+  :root {
+    /* Curvas. Las de serie del navegador son flojas: no tienen intención. */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+    /* Tiempos de interfaz. Por debajo de 300 ms o se siente lenta. */
+    --dur-press: 160ms;
+    --dur-ui: 240ms;
+    --dur-photo: 640ms;
+  }
+}
+
+/* --------------------------------------------------------------------- */
+/* 1. GATE — estados iniciales (solo con JS y sin movimiento reducido)     */
+/* --------------------------------------------------------------------- */
+
+html.js-motion [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0);
+}
+html.js-motion [data-reveal="left"]  { transform: translate3d(-40px, 0, 0); }
+html.js-motion [data-reveal="right"] { transform: translate3d(40px, 0, 0); }
+html.js-motion [data-reveal="scale"] { transform: translate3d(0, 20px, 0) scale(0.96); }
+
+/* Máscara para fotos: no aparece de la nada, se descubre de abajo arriba. */
+html.js-motion [data-reveal="mask"] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 100% 0);
+}
+
+html.js-motion [data-hero-item] {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+}
+
+/* Titular partido en líneas. El andamiaje lo crea el motor en cliente. */
+[data-split-ready] .ln {
+  display: block;
+  overflow: hidden;
+  /* aire para que la máscara no coma tildes ni los rabos de la Playfair */
+  padding: 0.14em 0.06em 0.14em 0;
+  margin: -0.14em -0.06em -0.14em 0;
+}
+[data-split-ready] .ln > span { display: block; }
+html.js-motion [data-split-ready] .ln > span { transform: translateY(115%); }
+
+/* --------------------------------------------------------------------- */
+/* 2. Ken Burns y lightbox                                                */
+/* --------------------------------------------------------------------- */
+
+@keyframes kenburns {
+  0%   { transform: scale(1.06) translate3d(0, 0, 0); }
+  50%  { transform: scale(1.18) translate3d(-1.6%, -1.2%, 0); }
+  100% { transform: scale(1.06) translate3d(0, 0, 0); }
+}
+
+@keyframes lb-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Menú móvil: aparecer de golpe se lee como un fallo, no como rapidez. */
+@keyframes menu-in {
+  from { opacity: 0; transform: translate3d(0, -8px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Nada en el mundo real aparece de la nada: arranca en 0.95, no en 0.86. */
+@keyframes lb-zoom {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@layer utilities {
+  .animate-kenburns {
+    animation: kenburns 28s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .lb-backdrop { animation: lb-fade 180ms var(--ease-out) forwards; }
+  .lb-img      { animation: lb-zoom 220ms var(--ease-out) forwards; }
+  .menu-in     { animation: menu-in 200ms var(--ease-out) forwards; }
+
+  /* --- Tacto ---------------------------------------------------------- */
+
+  /* Pulsación: el elemento acusa el dedo. Sutil, 0.97, y rápido.
+     Solo declara el estado; el tiempo lo pone la transición del propio
+     elemento, para no pisar transiciones más completas (color, sombra). */
+  .press:active { transform: scale(0.97); }
+
+  /* Para elementos sueltos (enlaces) que no traen transición propia. */
+  .press-solo {
+    transition: transform var(--dur-press) var(--ease-out);
+  }
+  .press-solo:active { transform: scale(0.97); }
+
+  /* Hover solo donde hay puntero de verdad: en táctil dispara al tocar. */
+  @media (hover: hover) and (pointer: fine) {
+    .lift {
+      transition:
+        transform var(--dur-ui) var(--ease-out),
+        box-shadow var(--dur-ui) var(--ease-out);
+    }
+    .lift:hover { transform: translateY(-6px); }
+
+    .zoom img {
+      transition: transform var(--dur-photo) var(--ease-out);
+    }
+    .zoom:hover img { transform: scale(1.06); }
+
+    .nudge { transition: transform var(--dur-ui) var(--ease-out); }
+    .group:hover .nudge { transform: translateX(4px); }
+  }
+}
+
+/* --------------------------------------------------------------------- */
+/* 3. Movimiento reducido — no es un extra                                */
+/* --------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenburns { animation: none !important; }
+
+  html [data-reveal],
+  html [data-hero-item] {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  [data-split-ready] .ln > span { transform: none !important; }
+
+  .lb-backdrop, .lb-img { animation: none !important; }
+  .menu-in { animation: none !important; }
+
+  .press:active,
+  .press-solo:active,
+  .lift:hover,
+  .zoom:hover img,
+  .group:hover .nudge { transform: none !important; }
+}
