@@ -8,6 +8,25 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="author" content="Restaurante Las Tejas" />
 
+    <!--
+      Gate de la capa de movimiento.
+      Marca el documento ANTES del primer pintado para que los estados
+      iniciales ocultos solo existan cuando hay JS. Sin JS (y para los
+      rastreadores) la web se ve entera y quieta.
+      Red de seguridad: si la capa no arranca, el gate se abre solo.
+    -->
+    <script>
+      (function () {
+        var d = document.documentElement;
+        var mq = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
+        if (mq && mq.matches) return;
+        d.classList.add("js-motion");
+        setTimeout(function () {
+          if (!d.classList.contains("motion-ready")) d.classList.remove("js-motion");
+        }, 2500);
+      })();
+    </script>
+
     <meta property="og:type" content="restaurant" />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:site_name" content="Restaurante Las Tejas" />
