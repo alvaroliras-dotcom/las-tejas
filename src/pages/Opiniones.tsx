@@ -51,7 +51,7 @@ const Opiniones = () => (
     {/* ⭐ BLOQUE VALORACIÓN */}
     <section className="pt-12 pb-6">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="bg-white border border-black/5 rounded-xl shadow-lg p-8 text-center">
+        <div data-reveal="scale" className="bg-white border border-black/5 rounded-xl shadow-lg p-8 text-center">
 
           <div className="text-xs uppercase tracking-[0.3em] mb-2" style={{ color: GOLD }}>
             Valoración media
@@ -71,17 +71,18 @@ const Opiniones = () => (
     {/* 🔥 TAGS */}
     <section className="pb-14">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center max-w-2xl mx-auto mb-10">
+        <div data-reveal className="text-center max-w-2xl mx-auto mb-10">
           <h2 className="font-serif text-3xl md:text-4xl text-primary">
             Lo que más nos repiten
           </h2>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3">
+        <div data-reveal-group className="flex flex-wrap justify-center gap-3">
           {patrones.map((p) => (
             <span
               key={p}
-              className="px-5 py-2.5 rounded-full bg-[#f4efe7] text-sm border border-black/5 hover:scale-105 transition"
+              data-reveal="scale"
+              className="px-5 py-2.5 rounded-full bg-[#f4efe7] text-sm border border-black/5 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] [@media(hover:hover)_and_(pointer:fine)]:hover:scale-105"
             >
               {p}
             </span>
@@ -94,11 +95,12 @@ const Opiniones = () => (
     <section className="section-padding bg-[#f8f5ef]">
       <div className="container mx-auto px-4 md:px-6">
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div data-reveal-group className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {opiniones.map((o, i) => (
             <div
               key={i}
-              className="bg-white p-7 rounded-xl shadow-md border border-black/5 relative hover:-translate-y-2 hover:shadow-xl transition"
+              data-reveal="up"
+              className="lift bg-white p-7 rounded-xl shadow-md border border-black/5 relative hover:shadow-xl"
             >
               <Quote className="h-8 w-8 text-black/10 absolute top-5 right-5" />
 

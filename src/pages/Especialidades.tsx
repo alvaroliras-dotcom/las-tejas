@@ -47,25 +47,26 @@ const Especialidades = () => (
       <div className="container mx-auto px-4 md:px-6">
 
         {/* INTRO */}
-        <div className="max-w-2xl mx-auto text-center mb-16">
+        <div data-reveal className="max-w-2xl mx-auto text-center mb-16">
           <p className="text-lg text-muted-foreground leading-relaxed">
             Aquí se agrupan las elaboraciones especialmente reconocidas por quienes nos visitan con frecuencia.
           </p>
         </div>
 
         {/* CARDS */}
-        <div className="grid lg:grid-cols-3 gap-10">
+        <div data-reveal-group className="grid lg:grid-cols-3 gap-10">
           {items.map((it) => (
             <Link
               key={it.title}
               to={it.to}
-              className="group block bg-card rounded-xl overflow-hidden border border-border/60 shadow-lg hover:shadow-2xl transition-all duration-300"
+              data-reveal="scale"
+              className="zoom lift group block bg-card rounded-xl overflow-hidden border border-border/60 shadow-lg hover:shadow-2xl"
             >
               <div className="aspect-[4/3] overflow-hidden">
                 <img
                   src={it.img}
                   alt={it.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover"
                 />
               </div>
 
@@ -83,7 +84,7 @@ const Especialidades = () => (
                   style={{ color: GOLD }}
                 >
                   Ver especialidad
-                  <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="nudge h-4 w-4 ml-2" />
                 </div>
               </div>
             </Link>

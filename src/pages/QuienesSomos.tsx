@@ -27,7 +27,7 @@ const QuienesSomos = () => (
     <section className="section-padding">
       <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 items-center">
 
-        <div>
+        <div data-reveal="left">
           <div className="text-xs uppercase tracking-[0.3em] text-secondary mb-4">
             Desde hace décadas
           </div>
@@ -49,6 +49,7 @@ const QuienesSomos = () => (
         </div>
 
         <img
+          data-reveal="mask"
           src={salaGrande}
           alt="Comedor principal del restaurante tradicional Las Tejas en Alcorcón"
           className="w-full h-[520px] object-cover rounded-xl shadow-2xl"
@@ -60,7 +61,7 @@ const QuienesSomos = () => (
     <section className="section-padding bg-black text-white">
       <div className="container mx-auto px-4 md:px-6">
 
-        <div className="text-center max-w-2xl mx-auto mb-14">
+        <div data-reveal className="text-center max-w-2xl mx-auto mb-14">
           <div className="text-xs uppercase tracking-[0.3em] mb-4" style={{ color: GOLD }}>
             Nuestra forma de trabajar
           </div>
@@ -74,7 +75,7 @@ const QuienesSomos = () => (
           </p>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-6">
+        <div data-reveal-group className="grid md:grid-cols-4 gap-6">
           {[
             { i: Heart, t: "Trato cercano", d: "Conocemos a nuestros clientes habituales por su nombre." },
             { i: Utensils, t: "Cocina casera", d: "Recetas tradicionales sin atajos ni concesiones." },
@@ -83,7 +84,8 @@ const QuienesSomos = () => (
           ].map(({ i: Icon, t, d }) => (
             <div
               key={t}
-              className="bg-white/5 backdrop-blur-md p-7 rounded-xl border border-white/10 shadow-xl"
+              data-reveal="scale"
+              className="lift bg-white/5 backdrop-blur-md p-7 rounded-xl border border-white/10 shadow-xl"
             >
               <Icon className="h-8 w-8 mb-4" style={{ color: GOLD }} />
               <h3 className="font-serif text-xl">{t}</h3>
@@ -100,26 +102,31 @@ const QuienesSomos = () => (
     <section className="section-padding bg-[#f8f5ef]">
       <div className="container mx-auto px-4 md:px-6 text-center">
 
-        <div className="text-xs uppercase tracking-[0.3em] mb-4" style={{ color: GOLD }}>
-          Nuestro espacio
+        <div data-reveal>
+          <div className="text-xs uppercase tracking-[0.3em] mb-4" style={{ color: GOLD }}>
+            Nuestro espacio
+          </div>
+
+          <h2 className="font-serif text-4xl md:text-5xl text-primary">
+            Una casa donde apetece quedarse
+          </h2>
         </div>
 
-        <h2 className="font-serif text-4xl md:text-5xl text-primary">
-          Una casa donde apetece quedarse
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-4 mt-10">
+        <div data-reveal-group className="grid md:grid-cols-3 gap-4 mt-10">
           <img
+            data-reveal="mask"
             src={photos.interior}
             alt="Interior del restaurante Las Tejas en Alcorcón"
             className="h-72 w-full object-cover rounded-xl shadow-soft"
           />
           <img
+            data-reveal="mask"
             src={photos.interior02}
             alt="Barra del restaurante tradicional en Alcorcón"
             className="h-72 w-full object-cover rounded-xl shadow-soft md:mt-12"
           />
           <img
+            data-reveal="mask"
             src={photos.interior03}
             alt="Comedor de Las Tejas con ambiente familiar"
             className="h-72 w-full object-cover rounded-xl shadow-soft"

@@ -1,6 +1,7 @@
 // components/hero/HeroDesktop.tsx
 
 import { Link } from "react-router-dom";
+import { Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { photos } from "@/assets/photos";
 import { GOLD } from "@/lib/constants";
@@ -41,7 +42,10 @@ export const HeroDesktop = () => {
 
           <div className="mt-8 flex gap-4">
             <Button asChild className="px-8 py-6 text-black" style={{ backgroundColor: GOLD }}>
-              <Link to="/contacto">Reservar mesa</Link>
+              <a href="tel:+34916108007">
+                <Phone className="mr-2 h-4 w-4" />
+                Llamar para reservar
+              </a>
             </Button>
 
             <Button asChild variant="outline" className="border-white text-white px-8 py-6">

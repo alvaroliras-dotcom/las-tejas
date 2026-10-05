@@ -25,6 +25,7 @@ No se escribe GSAP en las páginas. Se marca la intención con atributos:
 | `data-reveal-group` | Sus hijos directos con `data-reveal` entran en cascada (comprimida a medio segundo como máximo). |
 | `data-parallax="0.15"` | Recorrido parallax atado al scroll. El valor es la fracción del alto del elemento; la capa necesita sangrado (`-inset-[8%]`). |
 | `data-split` | El titular se parte en líneas reales y cada una sube desde detrás de su máscara. |
+| `data-dial` | Una cifra (el teléfono) entra dígito a dígito, como al marcar. Solo en Contacto. |
 | `data-hero` / `data-hero-item` | Entrada orquestada al cargar, respetando el orden del DOM. |
 | `data-hero-fade` | El bloque se retira al salir el hero de plano. |
 | `data-pin` + `data-pin-layer="1"` | Sección clavada con scrub. **Solo a partir de 1024 px.** |

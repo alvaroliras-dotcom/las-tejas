@@ -32,6 +32,34 @@ import pulpo02 from "./restaurante-las-tejas-alcorcon-pulpo-02.jpg";
 import pulpo03 from "./restaurante-las-tejas-alcorcon-pulpo-03.jpg";
 import salon from "./restaurante-las-tejas-alcorcon-salon.jpg";
 import texturaMadera from "./textura-madera-madera.jpg";
+import gulasAjillo from "./restaurante-las-tejas-alcorcon-gulas-ajillo.jpg";
+import gambasPlancha from "./restaurante-las-tejas-alcorcon-gambas-plancha.jpg";
+import gambonAjillo from "./restaurante-las-tejas-alcorcon-gambon-ajillo.jpg";
+import almejasMarinera from "./restaurante-las-tejas-alcorcon-almejas-marinera.jpg";
+import sepiaPlancha from "./restaurante-las-tejas-alcorcon-sepia-plancha.jpg";
+import morcilla from "./restaurante-las-tejas-alcorcon-morcilla.jpg";
+import patatasCabrales from "./restaurante-las-tejas-alcorcon-patatas-cabrales.jpg";
+import patatasBravas from "./restaurante-las-tejas-alcorcon-patatas-bravas.jpg";
+import patatasAlioli from "./restaurante-las-tejas-alcorcon-patatas-alioli.jpg";
+import ensaladillaRusa from "./restaurante-las-tejas-alcorcon-ensaladilla-rusa.jpg";
+import chorizo from "./restaurante-las-tejas-alcorcon-chorizo.jpg";
+import revueltoMorcilla from "./restaurante-las-tejas-alcorcon-revuelto-morcilla.jpg";
+import croquetasCaseras from "./restaurante-las-tejas-alcorcon-croquetas-caseras.jpg";
+import mollejas from "./restaurante-las-tejas-alcorcon-mollejas.jpg";
+import bonitoTomate from "./restaurante-las-tejas-alcorcon-bonito-tomate.jpg";
+import laconGallega from "./restaurante-las-tejas-alcorcon-lacon-gallega.jpg";
+import boquerones from "./restaurante-las-tejas-alcorcon-boquerones-fritos.jpg";
+import lomoIberico from "./restaurante-las-tejas-alcorcon-lomo-iberico.jpg";
+import bocadilloLacon from "./restaurante-las-tejas-alcorcon-bocadillo-lacon.jpg";
+import bocadilloMorcilla from "./restaurante-las-tejas-alcorcon-bocadillo-morcilla.jpg";
+import bocadilloChorizo from "./restaurante-las-tejas-alcorcon-bocadillo-chorizo.jpg";
+import pinchoTortilla from "./restaurante-las-tejas-alcorcon-pincho-tortilla.jpg";
+import bocadilloPepito from "./restaurante-las-tejas-alcorcon-bocadillo-pepito-ternera.jpg";
+import bocadilloCalamares from "./restaurante-las-tejas-alcorcon-bocadillo-calamares.jpg";
+import bocadilloTortilla from "./restaurante-las-tejas-alcorcon-bocadillo-tortilla.jpg";
+import bocadilloJamon from "./restaurante-las-tejas-alcorcon-bocadillo-jamon.jpg";
+import bocadilloLomo from "./restaurante-las-tejas-alcorcon-bocadillo-lomo.jpg";
+import bocadilloQueso from "./restaurante-las-tejas-alcorcon-bocadillo-queso.jpg";
 
 export const photos = {
   cachopo01,
@@ -68,6 +96,34 @@ export const photos = {
   pulpo03,
   salon,
   texturaMadera,
+  gulasAjillo,
+  gambasPlancha,
+  gambonAjillo,
+  almejasMarinera,
+  sepiaPlancha,
+  morcilla,
+  patatasCabrales,
+  patatasBravas,
+  patatasAlioli,
+  ensaladillaRusa,
+  chorizo,
+  revueltoMorcilla,
+  croquetasCaseras,
+  mollejas,
+  bonitoTomate,
+  laconGallega,
+  boquerones,
+  lomoIberico,
+  bocadilloLacon,
+  bocadilloMorcilla,
+  bocadilloChorizo,
+  bocadilloPepito,
+  bocadilloCalamares,
+  bocadilloTortilla,
+  bocadilloJamon,
+  bocadilloLomo,
+  bocadilloQueso,
+  pinchoTortilla,
 };
 
 export type PhotoKey = keyof typeof photos;

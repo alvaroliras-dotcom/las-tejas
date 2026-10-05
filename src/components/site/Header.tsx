@@ -27,14 +27,14 @@ export const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 text-white transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 text-white transition-[background-color,box-shadow,border-color] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] ${
         scrolled
           ? "bg-[#7e252e]/95 backdrop-blur-md border-b border-white/10 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)]"
           : "bg-gradient-to-b from-black/55 to-transparent border-b border-transparent"
       }`}
     >
       <div
-        className={`container mx-auto flex items-center justify-between px-4 md:px-6 transition-all duration-500 ${
+        className={`container mx-auto flex items-center justify-between px-4 md:px-6 transition-[height] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] ${
           scrolled ? "h-20 md:h-24" : "h-24 md:h-28"
         }`}
       >
@@ -43,7 +43,7 @@ export const Header = () => {
           <img
             src={logoBlanco}
             alt="Mesón Restaurante Las Tejas"
-            className={`object-contain transition-all duration-500 ${
+            className={`object-contain transition-[height] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] ${
               scrolled ? "h-[3.2rem] md:h-[3.6rem]" : "h-[3.8rem] md:h-[4.4rem]"
             }`}
           />
@@ -74,22 +74,13 @@ export const Header = () => {
           <Button
             asChild
             size="sm"
-            variant="outline"
-            className="border-white/40 bg-transparent text-white hover:bg-white hover:text-primary"
+            className="text-black font-semibold shadow-lg [@media(hover:hover)_and_(pointer:fine)]:hover:scale-[1.04]"
+            style={{ backgroundColor: GOLD }}
           >
             <a href="tel:+34916108007" className="flex items-center gap-2">
               <Phone className="h-4 w-4" />
-              Llamar
+              Reservar · 916 10 80 07
             </a>
-          </Button>
-
-          <Button
-            asChild
-            size="sm"
-            className="text-black font-semibold shadow-lg transition-transform hover:scale-105"
-            style={{ backgroundColor: GOLD }}
-          >
-            <Link to="/contacto#reserva">Reservar mesa</Link>
           </Button>
         </div>
 
@@ -105,7 +96,7 @@ export const Header = () => {
 
       {/* MOBILE MENU */}
       {open && (
-        <div className="lg:hidden bg-[#7e252e] text-white border-t border-white/10">
+        <div className="menu-in lg:hidden bg-[#7e252e] text-white border-t border-white/10 origin-top">
           <div className="container mx-auto px-4 py-5 flex flex-col gap-2">
             {NAV.map((item) => (
               <NavLink
@@ -118,20 +109,12 @@ export const Header = () => {
               </NavLink>
             ))}
 
-            <div className="grid grid-cols-2 gap-3 mt-4">
-              <Button asChild variant="outline" className="border-white text-white bg-transparent hover:bg-white hover:text-primary">
-                <a href="tel:+34916108007">
-                  <Phone className="h-4 w-4 mr-2" />
-                  Llamar
-                </a>
-              </Button>
-
-              <Button asChild className="text-black font-semibold" style={{ backgroundColor: GOLD }}>
-                <Link to="/contacto#reserva" onClick={() => setOpen(false)}>
-                  Reservar
-                </Link>
-              </Button>
-            </div>
+            <Button asChild className="mt-4 w-full text-black font-semibold" style={{ backgroundColor: GOLD }}>
+              <a href="tel:+34916108007" onClick={() => setOpen(false)}>
+                <Phone className="h-4 w-4 mr-2" />
+                Llamar para reservar
+              </a>
+            </Button>
           </div>
         </div>
       )}

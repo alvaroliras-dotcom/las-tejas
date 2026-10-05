@@ -26,7 +26,7 @@ const MenuDelDia = () => (
       <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-16 items-start">
 
         {/* TEXTO */}
-        <div>
+        <div data-reveal="left">
           <h2 className="font-serif text-4xl md:text-5xl text-primary leading-tight">
             Cada día una propuesta diferente
           </h2>
@@ -61,7 +61,7 @@ const MenuDelDia = () => (
         </div>
 
         {/* TARJETA MENÚ */}
-        <div className="bg-card border border-border rounded-xl shadow-xl p-8 md:p-10">
+        <div data-reveal="right" className="bg-card border border-border rounded-xl shadow-xl p-8 md:p-10">
 
           <div className="text-center mb-10">
             <div className="text-xs uppercase tracking-[0.3em]" style={{ color: GOLD }}>
@@ -129,11 +129,11 @@ const MenuDelDia = () => (
 
     {/* GALERÍA */}
     <section className="section-padding bg-muted/40">
-      <div className="container mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-        <img src={photos.calamares} alt="Calamares en Las Tejas" className="w-full h-44 object-cover rounded-lg" />
-        <img src={photos.cordero} alt="Cordero asado en Las Tejas" className="w-full h-44 object-cover rounded-lg" />
-        <img src={photos.flan} alt="Flan casero Las Tejas" className="w-full h-44 object-cover rounded-lg" />
-        <img src={photos.escalibada} alt="Escalibada Las Tejas" className="w-full h-44 object-cover rounded-lg" />
+      <div data-reveal-group className="container mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <img data-reveal="mask" src={photos.calamares} alt="Calamares en Las Tejas" className="w-full h-44 object-cover rounded-lg" />
+        <img data-reveal="mask" src={photos.cordero} alt="Cordero asado en Las Tejas" className="w-full h-44 object-cover rounded-lg" />
+        <img data-reveal="mask" src={photos.flan} alt="Flan casero Las Tejas" className="w-full h-44 object-cover rounded-lg" />
+        <img data-reveal="mask" src={photos.escalibada} alt="Escalibada Las Tejas" className="w-full h-44 object-cover rounded-lg" />
       </div>
     </section>
 

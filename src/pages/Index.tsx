@@ -1,6 +1,17 @@
 // =======================
 // 🔵 INICIO DESARROLLO HOME
 // =======================
+//
+// Guion de movimiento (capa Kubrick — solo añade, no rediseña):
+//   1. Hero      · titular por líneas + entrada escalonada + parallax con scrub
+//   2. Banda     · revelado en grupo
+//   3. Historia  · pin + scrub en escritorio: las dos fotos se separan
+//   4. Cifras    · conteo al entrar
+//   5. Menú/Carta· revelado escalonado + zoom de foto solo con ratón
+//   6. Platos    · fondo de madera con parallax real (fuera bg-fixed)
+//   7. Reseñas   · cascada corta
+//   8. Galería   · cascada comprimida (12 piezas, medio segundo total)
+// El botón de reservar nunca se mueve al hacer scroll.
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -16,8 +27,7 @@ import {
   ChefHat,
   Leaf,
   Users,
-  MessageCircle,
-  CalendarDays,
+  Phone,
   ArrowRight,
   Utensils,
   ExternalLink,
@@ -37,7 +47,10 @@ import { HERO_IMAGES } from "@/lib/hero-images";
 
 const Index = () => {
   const [selected, setSelected] = useState<number | null>(null);
-  const heroParallax = useParallax<HTMLDivElement>(0.15);
+  // El recorrido va por debajo del sangrado del -8% para que el borde
+  // de la foto no llegue a asomar nunca por arriba ni por abajo.
+  const heroParallax = useParallax<HTMLDivElement>(0.12);
+  const maderaParallax = useParallax<HTMLDivElement>(0.16);
 
   const opiniones = [
     { t: "Trato muy cercano y comida abundante. Volveremos seguro.", a: "Cliente habitual" },
@@ -139,7 +152,7 @@ const Index = () => {
       {/* 1. HERO — GIRO DESKTOP */}
       {/* ======================= */}
 
-      <section className="hidden md:block relative min-h-[980px] bg-black overflow-hidden">
+      <section data-hero className="hidden md:block relative min-h-[980px] bg-black overflow-hidden">
         <div ref={heroParallax} className="absolute -inset-[8%] will-change-transform">
           <HeroSlideshow images={HERO_IMAGES} imgClassName="object-center" />
         </div>
@@ -149,10 +162,12 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
 
         <div className="relative container mx-auto px-4 md:px-6 pt-28 pb-14 text-white">
-          <div className="max-w-3xl">
+          {/* El bloque de texto se retira al salir de plano; el faldón no. */}
+          <div data-hero-fade className="max-w-3xl">
 
             {/* TEXTO SUPERIOR */}
             <div
+              data-hero-item
               className="text-xs md:text-sm uppercase tracking-[0.25em] font-medium"
               style={{ color: GOLD }}
             >
@@ -160,12 +175,13 @@ const Index = () => {
             </div>
 
             {/* H1 SEO LIMPIO */}
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl mt-6 leading-[0.98]">
+            <h1 data-split className="font-serif text-5xl md:text-7xl lg:text-8xl mt-6 leading-[0.98]">
               Restaurante en Alcorcón
             </h1>
 
             {/* COPY DE CONVERSIÓN */}
             <h2
+              data-hero-item
               className="font-serif text-3xl md:text-5xl mt-4 italic"
               style={{ color: GOLD }}
             >
@@ -173,25 +189,25 @@ const Index = () => {
             </h2>
 
             {/* TEXTO PRINCIPAL */}
-            <p className="mt-7 text-lg md:text-xl text-white/85 max-w-xl leading-relaxed">
+            <p data-hero-item className="mt-7 text-lg md:text-xl text-white/85 max-w-xl leading-relaxed">
               Cocina casera desde 1978. Fabada, cachopo y platos de los de siempre en un restaurante donde lo importante sigue siendo comer bien.
             </p>
 
-            <p className="mt-4 text-white/70 max-w-xl leading-relaxed">
+            <p data-hero-item className="mt-4 text-white/70 max-w-xl leading-relaxed">
               Si buscas un sitio donde comer bien de verdad, en Las Tejas llevamos más de 40 años haciendo que la gente repita.
             </p>
 
             {/* BOTONES */}
-            <div className="mt-8 flex gap-4 flex-wrap">
+            <div data-hero-item className="mt-8 flex gap-4 flex-wrap">
               <Button
                 asChild
                 className="px-8 py-6 text-black rounded-md"
                 style={{ backgroundColor: GOLD }}
               >
-                <Link to="/contacto">
-                  <CalendarDays className="mr-2 h-4 w-4" />
-                  Reservar mesa
-                </Link>
+                <a href="tel:+34916108007">
+                  <Phone className="mr-2 h-4 w-4" />
+                  Llamar para reservar
+                </a>
               </Button>
 
               <Button
@@ -211,13 +227,17 @@ const Index = () => {
           {/* 2. FALDÓN GLASS DESKTOP */}
           {/* ======================= */}
 
-          <div className="mt-16 bg-black/35 backdrop-blur-md border border-white/10 rounded-xl grid md:grid-cols-4 overflow-hidden shadow-2xl">
+          <div
+            data-reveal-group
+            className="mt-16 bg-black/35 backdrop-blur-md border border-white/10 rounded-xl grid md:grid-cols-4 overflow-hidden shadow-2xl"
+          >
             {heroStats.map((item) => {
               const Icon = item.icon;
 
               return (
                 <div
                   key={item.title}
+                  data-reveal="up"
                   className="p-6 border-b md:border-b-0 md:border-r border-white/10 last:border-r-0"
                 >
                   <div className="flex items-center gap-3 mb-2" style={{ color: GOLD }}>
@@ -252,8 +272,11 @@ const Index = () => {
       {/* ======================= */}
 
       <section className="hidden md:block bg-[#f8f5ef] py-7 border-b border-black/5">
-        <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-4 gap-6 items-center text-sm text-primary">
-          <div className="flex items-start gap-3">
+        <div
+          data-reveal-group
+          className="container mx-auto px-4 md:px-6 grid md:grid-cols-4 gap-6 items-center text-sm text-primary"
+        >
+          <div data-reveal className="flex items-start gap-3">
             <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0" style={{ color: GOLD }} />
             <span>
               Avenida Alcalde José Aranda 49 posterior
@@ -262,7 +285,7 @@ const Index = () => {
             </span>
           </div>
 
-          <div className="flex items-start gap-3">
+          <div data-reveal className="flex items-start gap-3">
             <Clock className="h-5 w-5 mt-0.5 flex-shrink-0" style={{ color: GOLD }} />
             <span>
               07:00 - 19:00
@@ -271,30 +294,34 @@ const Index = () => {
             </span>
           </div>
 
-          <div className="flex items-start gap-3">
-            <MessageCircle className="h-5 w-5 mt-0.5 flex-shrink-0 text-[#25D366]" />
+          <div data-reveal className="flex items-start gap-3">
+            <Phone className="h-5 w-5 mt-0.5 flex-shrink-0" style={{ color: GOLD }} />
             <span>
-              WhatsApp
+              Reservas por teléfono
               <br />
-              670 XXXXXXX
+              <a href="tel:+34916108007" className="font-semibold">916 10 80 07</a>
             </span>
           </div>
 
-          <Button
-            asChild
-            className="text-black hover:opacity-90 rounded-md"
-            style={{ backgroundColor: GOLD }}
-          >
-            <Link to="/contacto">Reservar mesa</Link>
-          </Button>
+          <div data-reveal>
+            <Button
+              asChild
+              className="w-full text-black hover:opacity-90 rounded-md"
+              style={{ backgroundColor: GOLD }}
+            >
+              <a href="tel:+34916108007">Llamar para reservar</a>
+            </Button>
+          </div>
         </div>
       </section>
 
       {/* ======================= */}
       {/* 4. HISTORIA — QUIÉNES SOMOS */}
       {/* ======================= */}
+      {/* data-pin: en escritorio la sección se clava y las dos fotos se
+          separan con el scroll. En móvil y con movimiento reducido, no. */}
 
-      <section className="section-padding bg-[#f8f5ef] overflow-hidden">
+      <section data-pin className="section-padding bg-[#f8f5ef] overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-16 items-center">
           <Reveal as="div" variant="left">
 
@@ -333,7 +360,7 @@ const Index = () => {
             <div className="absolute right-6 top-10 w-[360px] h-[300px] rounded-[45%] bg-[#e5d8c8] blur-3xl opacity-80 rotate-[-8deg]" />
             <div className="absolute right-12 top-16 w-[340px] h-[240px] rounded-full bg-[#d7c7b3] blur-2xl opacity-40 rotate-[12deg]" />
 
-            <div className="absolute left-8 top-8 bg-white p-3 shadow-2xl rotate-[-6deg] z-10">
+            <div data-pin-layer="1" className="absolute left-8 top-8 bg-white p-3 shadow-2xl rotate-[-6deg] z-10">
               <img
                 src={photos.cartel1978}
                 alt="Cartel histórico Las Tejas 1978"
@@ -341,7 +368,7 @@ const Index = () => {
               />
             </div>
 
-            <div className="absolute right-0 top-24 bg-white p-3 shadow-2xl rotate-[5deg] z-20">
+            <div data-pin-layer="-1" className="absolute right-0 top-24 bg-white p-3 shadow-2xl rotate-[5deg] z-20">
               <img
                 src={photos.propietarioMarcial}
                 alt="Propietario de Las Tejas"
@@ -365,9 +392,12 @@ const Index = () => {
             backgroundSize: "60px 60px",
           }}
         />
-        <Reveal as="div" className="relative container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6 text-center md:divide-x divide-white/15">
-            <div className="px-4">
+        <div className="relative container mx-auto px-4 md:px-6">
+          <div
+            data-reveal-group
+            className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6 text-center md:divide-x divide-white/15"
+          >
+            <div data-reveal className="px-4">
               <div className="font-serif text-5xl md:text-7xl leading-none" style={{ color: GOLD }}>
                 <CountUp end={1978} />
               </div>
@@ -376,7 +406,7 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="px-4">
+            <div data-reveal className="px-4">
               <div className="font-serif text-5xl md:text-7xl leading-none" style={{ color: GOLD }}>
                 <CountUp end={48} />
               </div>
@@ -385,7 +415,7 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="px-4">
+            <div data-reveal className="px-4">
               <div className="font-serif text-5xl md:text-7xl leading-none" style={{ color: GOLD }}>
                 <CountUp end={2200} prefix="+" separator />
               </div>
@@ -394,7 +424,7 @@ const Index = () => {
               </div>
             </div>
           </div>
-        </Reveal>
+        </div>
       </section>
 
       {/* ======================= */}
@@ -402,20 +432,20 @@ const Index = () => {
       {/* ======================= */}
 
       <section className="section-padding bg-[#090807] text-white">
-        <div className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8">
-          {menuCards.map((item, i) => {
+        <div data-reveal-group className="container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-8">
+          {menuCards.map((item) => {
             const Icon = item.icon;
 
             return (
-              <Reveal key={item.title} as="div" delay={i * 140}>
+              <div key={item.title} data-reveal="scale">
               <Link
                 to={item.link}
-                className="group relative block h-[320px] rounded-xl overflow-hidden border border-white/10 shadow-2xl transition-shadow duration-500 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)]"
+                className="zoom group relative block h-[320px] rounded-xl overflow-hidden border border-white/10 shadow-2xl transition-shadow duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)]"
               >
                 <img
                   src={item.img}
                   alt={item.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/20" />
@@ -442,11 +472,11 @@ const Index = () => {
                     style={{ color: GOLD }}
                   >
                     {item.title === "Menú del día" ? "Ver menú completo" : "Ver carta completa"}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="nudge h-4 w-4" />
                   </div>
                 </div>
               </Link>
-              </Reveal>
+              </div>
             );
           })}
         </div>
@@ -458,9 +488,13 @@ const Index = () => {
 
       <section className="section-padding text-white text-center relative overflow-hidden">
 
-        {/* FONDO MADERA CON PARALLAX */}
+        {/* FONDO MADERA CON PARALLAX REAL.
+            Antes era background-attachment: fixed, que iOS ignora y que en
+            escritorio repinta la sección entera en cada scroll. Ahora es una
+            capa con sangrado que se desplaza con transform. */}
         <div
-          className="absolute inset-0 bg-fixed bg-center bg-cover"
+          ref={maderaParallax}
+          className="absolute -inset-[10%] bg-center bg-cover will-change-transform"
           style={{ backgroundImage: `url(${photos.texturaMadera})` }}
         />
         {/* OVERLAY OSCURO PARA LEGIBILIDAD */}
@@ -485,22 +519,18 @@ const Index = () => {
           </p>
           </Reveal>
 
-          <div className="grid md:grid-cols-3 gap-8 mt-12">
-            {especialidades.map((item, i) => (
-              <Reveal
-                key={item.title}
-                as="div"
-                delay={i * 120}
-              >
+          <div data-reveal-group className="grid md:grid-cols-3 gap-8 mt-12">
+            {especialidades.map((item) => (
+              <div key={item.title} data-reveal="up">
               <Link
                 to={item.link}
-                className="group block text-center"
+                className="zoom group block text-center"
               >
                 <div className="overflow-hidden rounded-xl border border-white/10">
                   <img
                     src={item.img}
                     alt={item.title}
-                    className="h-72 w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="h-72 w-full object-cover"
                   />
                 </div>
 
@@ -517,10 +547,10 @@ const Index = () => {
                   style={{ color: GOLD }}
                 >
                   Ver plato
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="nudge h-4 w-4" />
                 </div>
               </Link>
-              </Reveal>
+              </div>
             ))}
           </div>
 
@@ -559,13 +589,12 @@ const Index = () => {
           </p>
           </Reveal>
 
-          <div className="grid md:grid-cols-3 gap-6 mt-10">
+          <div data-reveal-group className="grid md:grid-cols-3 gap-6 mt-10">
             {opiniones.map((o, i) => (
-              <Reveal
+              <div
                 key={i}
-                as="div"
-                delay={(i % 3) * 110}
-                className="bg-white p-6 rounded-xl shadow-soft border border-black/5 text-left transition-shadow duration-500 hover:shadow-warm"
+                data-reveal="up"
+                className="lift bg-white p-6 rounded-xl shadow-soft border border-black/5 text-left hover:shadow-warm"
               >
                 <div className="mb-3 tracking-[0.18em]" style={{ color: GOLD }}>
                   ★★★★★
@@ -578,7 +607,7 @@ const Index = () => {
                 <div className="mt-4 text-sm text-muted-foreground">
                   — {o.a}
                 </div>
-              </Reveal>
+              </div>
             ))}
           </div>
 
@@ -621,21 +650,21 @@ const Index = () => {
           </p>
           </Reveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+          <div data-reveal-group className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
             {galeria.map((img, i) => (
-              <Reveal key={i} as="div" delay={(i % 4) * 90}>
+              <div key={i} data-reveal="mask">
               <button
                 onClick={() => setSelected(i)}
-                className="group block w-full overflow-hidden rounded-lg border border-black/5 shadow-sm"
+                className="zoom group block w-full overflow-hidden rounded-lg border border-black/5 shadow-sm"
                 aria-label={`Abrir imagen ${i + 1} de la galería`}
               >
                 <img
                   src={img}
                   alt={`Fotos reales de platos y local en Restaurante Las Tejas ${i + 1}`}
-                  className="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-44 object-cover"
                 />
               </button>
-              </Reveal>
+              </div>
             ))}
           </div>
 
@@ -656,7 +685,7 @@ const Index = () => {
           >
             <button
               onClick={() => setSelected(null)}
-              className="absolute top-6 right-6 text-white hover:text-white/70"
+              className="press-solo absolute top-6 right-6 text-white hover:text-white/70"
               aria-label="Cerrar galería"
             >
               <X className="h-8 w-8" />
@@ -667,7 +696,7 @@ const Index = () => {
                 e.stopPropagation();
                 setSelected((selected - 1 + galeria.length) % galeria.length);
               }}
-              className="absolute left-6 text-white hover:text-white/70"
+              className="press-solo absolute left-6 text-white hover:text-white/70"
               aria-label="Imagen anterior"
             >
               <ChevronLeft className="h-10 w-10" />
@@ -686,7 +715,7 @@ const Index = () => {
                 e.stopPropagation();
                 setSelected((selected + 1) % galeria.length);
               }}
-              className="absolute right-6 text-white hover:text-white/70"
+              className="press-solo absolute right-6 text-white hover:text-white/70"
               aria-label="Imagen siguiente"
             >
               <ChevronRight className="h-10 w-10" />

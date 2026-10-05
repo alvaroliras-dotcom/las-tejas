@@ -27,11 +27,12 @@ const Carnes = () => (
 
         <img
           src={photos.cordero}
+          data-reveal="mask"
           alt="Cordero asado en Las Tejas Alcorcón"
           className="w-full h-[520px] object-cover rounded-lg shadow-warm"
         />
 
-        <div>
+        <div data-reveal="right">
           <div className="text-xs uppercase tracking-[0.3em] text-secondary mb-4">
             Producto y fuego
           </div>
@@ -70,7 +71,7 @@ const Carnes = () => (
 
           <div className="mt-8 flex gap-3">
             <Button asChild className="bg-primary hover:bg-primary/90">
-              <Link to="/contacto">Reservar mesa</Link>
+              <a href="tel:+34916108007">Llamar para reservar</a>
             </Button>
 
             <Button asChild variant="outline">
@@ -86,23 +87,26 @@ const Carnes = () => (
     </section>
 
     <section className="bg-muted/40 py-16">
-      <div className="container mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-3 gap-3">
+      <div data-reveal-group className="container mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-3 gap-3">
 
         <img
           src={photos.entrecot}
           alt="Entrecot Las Tejas"
+          data-reveal="mask"
           className="w-full h-64 object-cover rounded-md shadow-soft"
         />
 
         <img
           src={photos.cordero}
           alt="Cordero Las Tejas"
+          data-reveal="mask"
           className="w-full h-64 object-cover rounded-md shadow-soft"
         />
 
         <img
           src={photos.cachopo01}
           alt="Carnes Las Tejas"
+          data-reveal="mask"
           className="w-full h-64 object-cover rounded-md shadow-soft col-span-2 md:col-span-1"
         />
 

@@ -3,7 +3,6 @@ import {
   MapPin,
   Phone,
   Clock,
-  Mail,
   Facebook,
   Instagram,
   ArrowRight,
@@ -101,13 +100,6 @@ export const Footer = () => {
               </li>
 
               <li className="flex gap-3">
-                <Mail className="h-4 w-4 mt-1" style={{ color: GOLD }} />
-                <a href="mailto:info@restaurantelastejas.es" className="hover:text-white">
-                  info@restaurantelastejas.es
-                </a>
-              </li>
-
-              <li className="flex gap-3">
                 <Clock className="h-4 w-4 mt-1" style={{ color: GOLD }} />
                 <span>
                   07:00 - 19:00 · sábado y domingo
@@ -117,14 +109,14 @@ export const Footer = () => {
             </ul>
 
             {/* CTA FOOTER */}
-            <Link
-              to="/contacto"
-              className="inline-flex items-center gap-2 mt-8 px-6 py-3 text-black rounded-md"
+            <a
+              href="tel:+34916108007"
+              className="press-solo group inline-flex items-center gap-2 mt-8 px-6 py-3 text-black rounded-md"
               style={{ backgroundColor: GOLD }}
             >
-              Reservar mesa
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+              <Phone className="h-4 w-4" />
+              Llamar para reservar
+            </a>
 
           </div>
 
