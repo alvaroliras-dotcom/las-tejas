@@ -59,6 +59,7 @@ import bocadilloCalamares from "./restaurante-las-tejas-alcorcon-bocadillo-calam
 import bocadilloTortilla from "./restaurante-las-tejas-alcorcon-bocadillo-tortilla.jpg";
 import bocadilloJamon from "./restaurante-las-tejas-alcorcon-bocadillo-jamon.jpg";
 import bocadilloLomo from "./restaurante-las-tejas-alcorcon-bocadillo-lomo.jpg";
+import bocadilloBacon from "./restaurante-las-tejas-alcorcon-bocadillo-bacon.jpg";
 import bocadilloQueso from "./restaurante-las-tejas-alcorcon-bocadillo-queso.jpg";
 
 export const photos = {
@@ -122,6 +123,7 @@ export const photos = {
   bocadilloTortilla,
   bocadilloJamon,
   bocadilloLomo,
+  bocadilloBacon,
   bocadilloQueso,
   pinchoTortilla,
 };

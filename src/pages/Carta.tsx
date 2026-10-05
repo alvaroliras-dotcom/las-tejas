@@ -65,7 +65,7 @@ const sections: Section[] = [
       { name: "Bocadillo de jamón", price: "8€", img: photos.bocadilloJamon },
       { name: "Bocadillo de lomo", price: "8€", img: photos.bocadilloLomo },
       { name: "Bocadillo de queso", price: "8€", img: photos.bocadilloQueso },
-      { name: "Bocadillo de bacon", price: "8€" },
+      { name: "Bocadillo de bacon", price: "8€", img: photos.bocadilloBacon },
     ],
   },
   {
